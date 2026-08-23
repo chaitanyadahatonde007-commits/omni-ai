@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Omni AI — Your permission-first agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">✦</span><span>omni<span class="muted">/</span>ai</span></div>
+      <div class="workspace-label">WORKSPACE <button class="tiny-plus">+</button></div>
+      <div class="workspace active"><div class="workspace-icon">O</div><div><b>Personal space</b><small>Private · 1 member</small></div><span class="dots">···</span></div>
+      <nav>
+        <a class="nav-item active" href="#"><span class="nav-icon">⌂</span> Overview</a>
+        <a class="nav-item" href="#activity"><span class="nav-icon">◷</span> Activity <span class="nav-badge">3</span></a>
+        <a class="nav-item" href="#connections"><span class="nav-icon">⌘</span> Connections</a>
+        <a class="nav-item" href="#settings"><span class="nav-icon">⚙</span> Settings</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="plan-card"><div class="plan-head"><span class="status-dot"></span> Local mode <span class="lock">⌁</span></div><p>Runs on your device when possible.</p><button class="upgrade">Manage providers <span>→</span></button></div>
+        <div class="user-row"><div class="avatar">JD</div><div><b>Jordan Davis</b><small>Owner</small></div><span class="chev">⌄</span></div>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="topbar"><div class="breadcrumbs"><span>Personal space</span><b>/</b><strong>Overview</strong></div><div class="top-actions"><div class="secure"><span class="status-dot"></span> All systems ready</div><button class="icon-button" aria-label="Notifications">♧<i></i></button><button class="help">?</button></div></header>
+      <div class="content">
+        <section class="hero"><div><p class="eyebrow">GOOD MORNING, JORDAN <span>✦</span></p><h1>Your ideas,<br><em>in motion.</em></h1><p class="hero-sub">Omni is your permission-first AI workspace. Give it a goal, stay in control.</p></div><div class="hero-orb"><div class="orb-glow"></div><div class="orb">✦</div><span class="orb-label">READY TO HELP</span></div></section>
+        <section class="composer card"><div class="composer-top"><span class="spark">✦</span><textarea id="prompt" rows="2" placeholder="What would you like to get done?"></textarea><span class="slash">⌘ K</span></div><div class="composer-bottom"><div class="mode-select"><span class="mini-orb">✦</span><span>Auto mode</span><span class="down">⌄</span></div><div class="composer-tools"><button class="tool">＋ <span>Attach</span></button><button class="tool">◉ <span>Voice</span></button><button id="runBtn" class="run-btn">Run with permission <span>↗</span></button></div></div></section>
+        <div class="grid">
+          <section class="section-block" id="activity"><div class="section-heading"><div><p class="eyebrow">YOUR WORKSPACE</p><h2>Recent activity</h2></div><a href="#activity">View all <span>→</span></a></div><div class="activity-list card">
+            <div class="activity-row"><div class="activity-icon teal">⌕</div><div class="activity-info"><b>Research: sustainable packaging trends</b><p>Web search · 8 sources summarized</p></div><span class="activity-time">12 min ago</span><span class="complete">✓</span></div>
+            <div class="activity-row"><div class="activity-icon violet">▤</div><div class="activity-info"><b>Drafted Q3 product launch brief</b><p>Created document · 1,240 words</p></div><span class="activity-time">Yesterday</span><span class="complete">✓</span></div>
+            <div class="activity-row"><div class="activity-icon amber">↗</div><div class="activity-info"><b>Weekly competitor digest</b><p>Scheduled automation · Every Monday</p></div><span class="activity-time">2 days ago</span><span class="on">ON</span></div>
+          </div></section>
+          <section class="section-block" id="connections"><div class="section-heading"><div><p class="eyebrow">INTELLIGENCE LAYER</p><h2>Active providers</h2></div><a href="#connections">Configure <span>→</span></a></div><div class="providers card">
+            <div class="provider"><div class="provider-logo omni-logo">✦</div><div><b>Omni router</b><p>Chooses the best model for every task</p></div><span class="pill green">Active</span></div>
+            <div class="provider"><div class="provider-logo search-logo">⌕</div><div><b>Web search</b><p>Live sources with citations</p></div><span class="pill green">Connected</span></div>
+            <div class="provider"><div class="provider-logo local-logo">⌁</div><div><b>Local models</b><p>Private, on-device inference</p></div><span class="pill outline">2 ready</span></div>
+            <button class="add-provider">+ Add a provider</button>
+          </div></section>
+        </div>
+        <section class="permission-banner card"><div class="permission-symbol">✓</div><div><b>You’re always in control</b><p>Omni will pause before sending messages, changing files, spending money, or taking actions outside this workspace.</p></div><a href="#settings">Review permissions <span>→</span></a></section>
+      </div>
+      <footer><span><span class="status-dot"></span> Privacy-first by default</span><span>v0.1.0 alpha</span></footer>
+    </main>
+  </div>
+  <div id="permissionModal" class="modal-backdrop hidden"><div class="modal"><button class="modal-close">×</button><div class="modal-icon">✦</div><p class="eyebrow">PERMISSION REQUIRED</p><h2>Ready to make a plan?</h2><p class="modal-copy">Omni wants to understand your request and prepare a step-by-step plan. Nothing will happen until you approve each action.</p><div class="request-box"><span>✦</span><div><b id="requestText">Your request</b><small>Plan only · No external actions</small></div></div><div class="modal-actions"><button class="secondary modal-close">Not yet</button><button id="approveBtn" class="run-btn">Create a plan <span>↗</span></button></div><p class="fine-print">You can change these rules anytime in Settings.</p></div></div>
+  <div id="toast" class="toast"><span>✦</span><div><b>Plan created</b><small>Omni is waiting for your review.</small></div></div>
+  <script src="app.js"></script>
+</body>
+</html>
