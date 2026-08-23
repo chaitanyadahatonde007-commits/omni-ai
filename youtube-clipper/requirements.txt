@@ -1,0 +1,3 @@
+yt-dlp
+# optional: provides an ffmpeg binary if you can't install ffmpeg system-wide
+imageio-ffmpeg
