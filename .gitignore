@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+
+# Local user state (keys/config/memory never go into git)
+.omni/
+omni-workspace/
+
+# Logs & OS junk
+*.log
+.DS_Store
+Thumbs.db
