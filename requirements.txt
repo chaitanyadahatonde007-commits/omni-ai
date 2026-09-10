@@ -1,0 +1,5 @@
+# OMNI - required libraries (all free & open source)
+rich>=13.5.0        # beautiful terminal UI
+requests>=2.31.0    # web access
+beautifulsoup4>=4.12.0  # HTML parsing for search
+trafilatura>=1.8.0  # article text extraction (read any webpage cleanly)
