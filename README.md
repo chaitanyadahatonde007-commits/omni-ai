@@ -55,7 +55,13 @@ to know what that actually means. Here are the real numbers, not the pitch.
 
 | Route | Realistic payout | Effort | The catch |
 |---|---|---|---|
-| **Bounties** (this tool) | $50–$5,000/issue | Medium | ~15% merge rate on platforms like Algora |
+| **Bounties** (this tool) | $50–$5,000/issue | Medium | ~15% merge rate; most "bounties" never pay — see [Payer verification](#payer-verification--read-this-first) |
+
+> **Note on Algora:** older articles describe Algora.io as an escrowed bounty
+> marketplace. As of September 2026 its homepage describes it as *"Open source
+> tech recruiting — connecting the most prolific open source maintainers &
+> contributors with their next jobs."* It pivoted away from bounties. Verify
+> any platform before you plan income around it.
 | **Technical writing** | $50–$500/article | Low | Needs a portfolio to start |
 | **Services / consulting** | $100–$300/hour | Medium | Only after OSS credibility exists |
 | **GitHub Sponsors** | $50–$500/mo mid-tier | Ongoing | Requires an audience you don't have yet |
@@ -165,7 +171,8 @@ so rather than printing a table that looks encouraging:
 ```
 None of the top results came from a repo that has ever merged a PR.
 That is not bad luck — it is the normal state of open bounties.
-Try Algora.io (escrowed bounties) instead of raw issue labels.
+Prefer bounties held in escrow (money committed before the work starts) over
+raw issue labels.
 ```
 
 Escrowed platforms hold the money *before* the work starts, which removes the

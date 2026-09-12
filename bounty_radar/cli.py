@@ -230,8 +230,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                   "a PR.", file=sys.stderr)
             print("That is not bad luck — it is the normal state of open bounties.",
                   file=sys.stderr)
-            print("Try Algora.io (escrowed bounties) instead of raw issue labels.",
-                  file=sys.stderr)
+            print("Prefer bounties held in escrow (money committed before the work "
+                  "starts) over raw issue labels.", file=sys.stderr)
         ranked = good if good else ranked
 
     rows = [b.as_row() for b in ranked]
