@@ -118,6 +118,59 @@ test named after the issue that exposed it.
 Override any of it with `--include-spam` / `--include-uncollectable` if you
 think the filter is being too aggressive.
 
+### Payer verification — read this first
+
+```bash
+python3 -m bounty_radar --beginner --verify 12
+```
+
+This is the most important flag in the tool. Amount, labels and freshness say
+**nothing** about whether anyone will pay you.
+
+When this was first run against the beginner list, it checked the top 29
+results and found **not one of them** came from a repo with a live payment
+record:
+
+```
+BAD cuentaprueba244w-dotcom/zeroeye    NO EVIDENCE OF PAYMENT (0 merged PR, 114 open PR, pushed 86d ago)
+BAD mergeos-bounties/Loru              BACKLOGGED 5:1 open:merged (50 merged PR, 253 open PR, pushed 53d ago)
+BAD HBesso31/LiquidFenix               NO EVIDENCE OF PAYMENT (0 merged PR, 4 open PR, pushed 2349d ago)
+BAD BTCPrivate/BTCP-Rebase             PAID BEFORE, NOW STALE (40 merged PR, 12 open PR, pushed 2792d ago)
+```
+
+The worst case, `cuentaprueba244w-dotcom/zeroeye`, had posted `$12`–`$30`
+beginner docs bounties labelled `good first issue` + `help wanted`. On the
+surface, exactly what a beginner should chase. In reality:
+
+- **0 PRs merged, ever.** 114 open and unreviewed.
+- Account created 2026-06-14, repo created 2026-06-17, last push 2026-06-19.
+- At least **seven different people** submitted a PR for the same `$25` task.
+- A commenter on 2026-09-12 withdrew theirs: *"I can't confirm this bounty has
+  a funded payer behind it."*
+
+Three signals, all cheap to check, all decisive:
+
+| Signal | Question it answers |
+|---|---|
+| **merged PRs** | Has this repo ever accepted anyone's work? |
+| **open:merged ratio** | Does the review queue move, or pile up? |
+| **days since push** | Is a maintainer still there to review yours? |
+
+A repo with 40 merged PRs that has been silent for 2,792 days is not a
+opportunity. Neither is one with a 5:1 backlog — your PR just joins the pile.
+
+**If verification finds nothing, that is the honest answer**, and the tool says
+so rather than printing a table that looks encouraging:
+
+```
+None of the top results came from a repo that has ever merged a PR.
+That is not bad luck — it is the normal state of open bounties.
+Try Algora.io (escrowed bounties) instead of raw issue labels.
+```
+
+Escrowed platforms hold the money *before* the work starts, which removes the
+failure mode entirely. Label-scraping cannot.
+
 ### Beginner mode
 
 ```bash
@@ -188,10 +241,10 @@ git add .github/workflows/tests.yml && git commit -m "Enable CI" && git push
 
 It runs the test suite on Python 3.9 / 3.11 / 3.12 plus a `--help` smoke test.
 
-112 tests cover amount parsing, spam/application detection, ranking order,
-output formats, and — importantly — the failure paths, so an expired token can
-never be reported as "no bounties found". Several tests are named after the
-specific live issue that exposed the bug they guard.
+130 tests cover amount parsing, spam/application detection, payer verification,
+ranking order, output formats, and — importantly — the failure paths, so an
+expired token can never be reported as "no bounties found". Several tests are
+named after the specific live issue or repo that exposed the bug they guard.
 
 ## Licence
 

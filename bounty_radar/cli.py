@@ -58,6 +58,11 @@ def build_parser() -> argparse.ArgumentParser:
                         default="table")
     parser.add_argument("--save", type=str, default=None, metavar="PATH",
                         help="also write results to this file (format inferred from extension)")
+    parser.add_argument("--verify", type=int, nargs="?", const=12, default=None,
+                        metavar="N",
+                        help="check whether the top N repos have ever merged a PR "
+                             "(i.e. actually paid anyone). Costs API calls. STRONGLY "
+                             "recommended before you spend an hour on a bounty.")
     parser.add_argument("--per-page", type=int, default=50)
     parser.add_argument("--max-pages", type=int, default=2)
     parser.add_argument("-q", "--quiet", action="store_true")
@@ -103,6 +108,22 @@ def render_table(rows: list[dict], limit: int) -> str:
         )
 
     lines.append(rule)
+    if any(row.get("payer_verdict") not in (None, "not checked") for row in rows[:limit]):
+        lines.append("")
+        lines.append("PAYER CHECK (merged PR history — has this repo ever paid anyone?)")
+        seen: set[str] = set()
+        for row in rows[:limit]:
+            if row.get("payer_verdict") in (None, "not checked"):
+                continue
+            if row["repo"] in seen:
+                continue
+            seen.add(row["repo"])
+            mark = "OK " if row.get("payer_verified") else "BAD"
+            lines.append(f"  {mark} {row['repo']:<40} {row['payer_verdict']}")
+        lines.append("")
+        lines.append("BAD = never merged a PR, or went silent. Working there has a "
+                     "known-zero expected return.")
+    lines.append("")
     lines.append("USD~ = approximate USD (static FX rates, NOT live). CMNT = comment "
                  "count, a proxy for how many people are already on it.")
     return "\n".join(lines)
@@ -194,7 +215,30 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
     log(f"  {len(ranked)} survived spam filtering")
 
+    health: dict[str, object] = {}
+    rejected: list[Bounty] = []
+    if args.verify is not None:
+        from .verify import apply_verification, verify_bounties
+
+        log(f"verifying whether the top {args.verify} repos actually pay out…")
+        health = verify_bounties(ranked, limit=args.verify, log=log)
+        good, rejected = apply_verification(ranked, health)
+        log(f"  {len(good)} from repos with a real merge history, "
+            f"{len(rejected)} from repos with none")
+        if not good and rejected:
+            print("\nNone of the top results came from a repo that has ever merged "
+                  "a PR.", file=sys.stderr)
+            print("That is not bad luck — it is the normal state of open bounties.",
+                  file=sys.stderr)
+            print("Try Algora.io (escrowed bounties) instead of raw issue labels.",
+                  file=sys.stderr)
+        ranked = good if good else ranked
+
     rows = [b.as_row() for b in ranked]
+    for row in rows:
+        h = health.get(row["repo"])
+        row["payer_verified"] = h.verified_payer if h is not None else None
+        row["payer_verdict"] = h.verdict if h is not None else "not checked"
 
     if args.format == "json":
         print(json.dumps(rows[: args.limit], indent=2, ensure_ascii=False))
