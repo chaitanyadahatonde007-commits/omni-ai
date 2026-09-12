@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bounty-radar"
+version = "0.1.0"
+description = "Find GitHub issues that actually pay, and skip the bot spam."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+keywords = ["github", "bounty", "open-source", "paid-issues", "freelance"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[project.scripts]
+bounty-radar = "bounty_radar.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/chaitanyadahatonde007-commits/omni-ai"
+Issues = "https://github.com/chaitanyadahatonde007-commits/omni-ai/issues"
+
+[tool.setuptools.packages.find]
+include = ["bounty_radar*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
